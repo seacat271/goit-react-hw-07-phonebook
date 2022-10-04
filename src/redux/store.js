@@ -1,23 +1,27 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { itemsSlice } from './contacts/slice';
-import { filterSlice } from './filter/slice';
-import { combineReducers } from '@reduxjs/toolkit';
+// import { itemsSlice } from './contacts/slice';
+// import { filterSlice } from './filter/slice';
+import { filterReducer} from './filter/filterReducer';
+import { contactsReducer } from './contacts/contactsReducer';
+import  {data}  from '../data';
 
 
-const contactsReducer = combineReducers({
-  items: itemsSlice.reducer,
-  isLoading: "isLoading",
-  error: null,
-});
-
-const rootReducer = combineReducers({
-  contacts: contactsReducer,
-  filter: filterSlice.reducer,
-});
+const preLoadedState = {
+  contacts: {
+    items: data,
+    isLoading: false,
+    error: null,
+  }, 
+  filter: '',
+}
 
 
 
 
 export const store = configureStore({
-  reducer: rootReducer,
+  reducer: {
+    contacts: contactsReducer,
+    filter: filterReducer,
+  },
+  preLoadedState,
 });

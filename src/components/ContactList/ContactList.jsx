@@ -6,13 +6,14 @@ import {
   ButtonDelete,
 } from './ContactList.styled';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
-import { deleteContact } from 'redux/contacts/slice';
+// import { deleteContact } from 'redux/contacts/slice';
 
 
 const ContactList = () => {
 const dispatch = useDispatch();
-const items = useSelector(state => state.contacts.items);
 const filter = useSelector(state => state.filter);
+const items = useSelector(state => state.contacts.items);
+
 
 const getVisibleContacts = () => {
   const filterNormalize = filter.toLowerCase(); 
@@ -28,7 +29,7 @@ const getVisibleContacts = () => {
           <ItemContainer>
             {name}: <NameStyle>{number}</NameStyle>
           </ItemContainer>
-          <ButtonDelete onClick={() => dispatch(deleteContact(id))}>Delete</ButtonDelete>
+          {/* <ButtonDelete onClick={() => dispatch(deleteContact(id))}>Delete</ButtonDelete> */}
         </Item>
       ))}
     </ItemList>
