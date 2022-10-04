@@ -11,14 +11,14 @@ import { deleteContact } from 'redux/contacts/slice';
 
 const ContactList = () => {
 const dispatch = useDispatch();
-const contacts = useSelector(state => state.contacts);
+const items = useSelector(state => state.contacts.items);
 const filter = useSelector(state => state.filter);
 
 const getVisibleContacts = () => {
   const filterNormalize = filter.toLowerCase(); 
   return (filter) 
-  ? contacts.filter(contact => contact.name.toLowerCase().includes(filterNormalize))
-  : contacts
+  ? items.filter(contact => contact.name.toLowerCase().includes(filterNormalize))
+  : items
 };
 
   return (
