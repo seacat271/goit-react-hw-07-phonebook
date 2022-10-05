@@ -38,7 +38,7 @@ const Form = () => {
     //   alert(`${number} is already in contacts`);
     //   return;
     // }
-    // const id = nanoid();
+
     dispatch(addContact({name, phone}));
     reset()
   };

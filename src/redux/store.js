@@ -3,12 +3,12 @@ import { configureStore } from '@reduxjs/toolkit';
 // import { filterSlice } from './filter/slice';
 import { filterReducer} from './filter/filterReducer';
 import { contactsReducer } from './contacts/contactsReducer';
-import  {data}  from '../data';
+
 
 
 const preLoadedState = {
   contacts: {
-    items: data,
+    items: [],
     isLoading: false,
     error: null,
   }, 

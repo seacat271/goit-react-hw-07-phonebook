@@ -6,27 +6,40 @@ import { addContactRequest, addContactSuccess, addContactError, deleteContactSuc
 
 export const itemsReducer = createReducer([], {
     [addContactSuccess]: (state, action) => {
+    
+        if (state.some(
+            contact => contact.name.toLowerCase() === action.payload.name.toLowerCase()
+          )) {
+            alert(`${action.payload.name} is already in contacts`);
+            return;
+          }
+
+          if (state.some(
+            contact => contact.phone === action.payload.phone)) {
+            alert(`${action.payload.phone} is already in contacts`);
+            return;
+          }
         return [...state, action.payload]
     },
 
     [deleteContactSuccess]: (state, action) => {
         return state.filter(contact => contact.id !== action.payload)
     },
-    [getContactSuccess]: (state, action) => {
+    [getContactSuccess]: (_, action) => {
         return [...action.payload]
     }
 })
 
 export const errorReducer = createReducer(null, {
     [addContactRequest]: () => null,
-    [addContactError]: (state, action) => action.payload,
+    [addContactError]: (_, action) => action.payload,
     [deleteContactRequest]: () => null,
-    [deleteContactError]: (state, action) => action.payload,
+    [deleteContactError]: (_, action) => action.payload,
     [getContactRequest]: () => null,
-    [getContactError]: (state, action) => action.payload,
+    [getContactError]: (_, action) => action.payload,
     }
 )
-export const isLoading = createReducer(false, {
+export const loadingReducer = createReducer(false, {
     [addContactRequest]: () => true,
     [addContactSuccess]: () => false,
     [addContactError]: () => false,
@@ -40,6 +53,6 @@ export const isLoading = createReducer(false, {
 
 export const contactsReducer = combineReducers({
     items: itemsReducer,
-    isLoading: isLoading,
+    isLoading: loadingReducer,
     error: errorReducer,
   });
