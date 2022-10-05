@@ -1,11 +1,10 @@
 import { createReducer, combineReducers } from "@reduxjs/toolkit";
-import { addContactRequest, addContactSuccess, addContactError, deleteContactSuccess, getContactSuccess, deleteContactRequest, deleteContactError, getContactRequest, getContactError } from "./contactsActions";
-import { fetchAll } from "./contactsOperations";
+import { addContact, deleteContact, fetchContacts } from "./contactsOperations";
 
 
 
 export const itemsReducer = createReducer([], {
-    [addContactSuccess]: (state, action) => {
+    [addContact.fulfilled]: (state, action) => {
     
         if (state.some(
             contact => contact.name.toLowerCase() === action.payload.name.toLowerCase()
@@ -22,33 +21,33 @@ export const itemsReducer = createReducer([], {
         return [...state, action.payload]
     },
 
-    [deleteContactSuccess]: (state, action) => {
+    [deleteContact.fulfilled]: (state, action) => {
         return state.filter(contact => contact.id !== action.payload)
     },
-    [fetchAll.fulfilled]: (_, action) => {
+    [fetchContacts.fulfilled]: (_, action) => {
         return [...action.payload]
     }
 })
 
 export const errorReducer = createReducer(null, {
-    [addContactRequest]: () => null,
-    [addContactError]: (_, action) => action.payload,
-    [deleteContactRequest]: () => null,
-    [deleteContactError]: (_, action) => action.payload,
-    [fetchAll.pending]: () => null,
-    [fetchAll.rejected]: (_, action) => action.payload,
+    [addContact.pending]: () => null,
+    [addContact.rejected]: (_, action) => action.payload,
+    [deleteContact.pending]: () => null,
+    [deleteContact.rejected]: (_, action) => action.payload,
+    [fetchContacts.pending]: () => null,
+    [fetchContacts.rejected]: (_, action) => action.payload,
     }
 )
 export const loadingReducer = createReducer(false, {
-    [addContactRequest]: () => true,
-    [addContactSuccess]: () => false,
-    [addContactError]: () => false,
-    [deleteContactRequest]: () => true,
-    [deleteContactSuccess]: () => false,
-    [deleteContactError]: () => false,
-    [fetchAll.pending]: () => true,
-    [fetchAll.fulfilled]: () => false,
-    [fetchAll.rejected]: () => false,
+    [addContact.pending]: () => true,
+    [addContact.fulfilled]: () => false,
+    [addContact.rejected]: () => false,
+    [deleteContact.pending]: () => true,
+    [deleteContact.fulfilled]: () => false,
+    [deleteContact.rejected]: () => false,
+    [fetchContacts.pending]: () => true,
+    [fetchContacts.fulfilled]: () => false,
+    [fetchContacts.rejected]: () => false,
 })
 
 export const contactsReducer = combineReducers({
