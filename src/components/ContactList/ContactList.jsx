@@ -7,7 +7,9 @@ import {
 } from './ContactList.styled';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 // import { deleteContact } from 'redux/contacts/slice';
-import { deleteContact } from 'redux/contacts/contactsActions';
+import { deleteContact, getContact} from 'redux/contacts/contactsOperations';
+import { useEffect } from 'react';
+
 
 
 const ContactList = () => {
@@ -15,6 +17,9 @@ const dispatch = useDispatch();
 const filter = useSelector(state => state.filter);
 const items = useSelector(state => state.contacts.items);
 
+useEffect(() => {
+  dispatch(getContact())
+},[])
 
 const getVisibleContacts = () => {
   const filterNormalize = filter.toLowerCase(); 
@@ -25,10 +30,10 @@ const getVisibleContacts = () => {
 
   return (
     <ItemList>
-      {getVisibleContacts().map(({ name, id, number }) => (
+      {getVisibleContacts().map(({ name, id, phone }) => (
         <Item key={id}>
           <ItemContainer>
-            {name}: <NameStyle>{number}</NameStyle>
+            {name}: <NameStyle>{phone}</NameStyle>
           </ItemContainer>
           <ButtonDelete onClick={() => dispatch(deleteContact(id))}>Delete</ButtonDelete>
         </Item>
