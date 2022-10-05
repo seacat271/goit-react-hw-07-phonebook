@@ -17,6 +17,15 @@ export const itemsReducer = createReducer([], {
     }
 })
 
+export const errorReducer = createReducer(null, {
+    [addContactRequest]: () => null,
+    [addContactError]: (state, action) => action.payload,
+    [deleteContactRequest]: () => null,
+    [deleteContactError]: (state, action) => action.payload,
+    [getContactRequest]: () => null,
+    [getContactError]: (state, action) => action.payload,
+    }
+)
 export const isLoading = createReducer(false, {
     [addContactRequest]: () => true,
     [addContactSuccess]: () => false,
@@ -32,5 +41,5 @@ export const isLoading = createReducer(false, {
 export const contactsReducer = combineReducers({
     items: itemsReducer,
     isLoading: isLoading,
-    error: null,
+    error: errorReducer,
   });

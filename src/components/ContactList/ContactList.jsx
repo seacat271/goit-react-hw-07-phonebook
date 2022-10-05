@@ -19,7 +19,7 @@ const items = useSelector(state => state.contacts.items);
 
 useEffect(() => {
   dispatch(getContact())
-},[])
+},[dispatch])
 
 const getVisibleContacts = () => {
   const filterNormalize = filter.toLowerCase(); 
