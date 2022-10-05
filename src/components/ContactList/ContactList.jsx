@@ -7,7 +7,7 @@ import {
 } from './ContactList.styled';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 // import { deleteContact } from 'redux/contacts/slice';
-import { deleteContact, getContact} from 'redux/contacts/contactsOperations';
+import { deleteContact, fetchAll} from 'redux/contacts/contactsOperations';
 import { useEffect } from 'react';
 
 
@@ -18,7 +18,7 @@ const filter = useSelector(state => state.filter);
 const items = useSelector(state => state.contacts.items);
 
 useEffect(() => {
-  dispatch(getContact())
+  dispatch(fetchAll())
 },[dispatch])
 
 const getVisibleContacts = () => {

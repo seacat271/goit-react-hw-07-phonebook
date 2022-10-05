@@ -13,9 +13,9 @@ import { createAction } from '@reduxjs/toolkit';
 //     )
 //     .catch(error => dispatch({type: 'contacts/addError', payload: error,} ));
 // };
-export const getContactRequest = createAction('contacts/getRequest');
-export const getContactSuccess = createAction('contacts/getSuccess');
-export const getContactError = createAction('contacts/getError');
+// export const getContactRequest = createAction('contacts/getRequest');
+// export const getContactSuccess = createAction('contacts/getSuccess');
+// export const getContactError = createAction('contacts/getError');
 
 export const addContactRequest = createAction("contacts/addRequest");
 export const addContactSuccess = createAction("contacts/addSuccess");

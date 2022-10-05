@@ -10,6 +10,7 @@ import {
   getContactSuccess,
   getContactError,
 } from './contactsActions';
+import {createAsyncThunk} from "@reduxjs/toolkit";
 
 axios.defaults.baseURL = 'https://633c5013f11701a65f73ed7d.mockapi.io/contacts';
 
@@ -31,11 +32,17 @@ try {
 } catch (error) {dispatch(deleteContactError(error))}
 };
 
-export const getContact = () => async dispatch => {
-    dispatch(getContactRequest());
-try {
-    const response = await axios.get('/contacts');
-    dispatch(getContactSuccess(response.data))
+// export const getContact = () => async dispatch => {
+//     dispatch(getContactRequest());
+// try {
+//     const response = await axios.get('/contacts');
+//     dispatch(getContactSuccess(response.data))
 
-} catch (error) {dispatch(getContactError(error))}
-}
+// } catch (error) {dispatch(getContactError(error))}
+// }
+
+
+export const fetchAll = createAsyncThunk("contacts/get", async () => {
+    const response = await axios.get('/contacts');
+    return response.data
+})
