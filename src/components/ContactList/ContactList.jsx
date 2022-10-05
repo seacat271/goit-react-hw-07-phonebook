@@ -7,6 +7,7 @@ import {
 } from './ContactList.styled';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 // import { deleteContact } from 'redux/contacts/slice';
+import { deleteContact } from 'redux/contacts/contactsActions';
 
 
 const ContactList = () => {
@@ -29,7 +30,7 @@ const getVisibleContacts = () => {
           <ItemContainer>
             {name}: <NameStyle>{number}</NameStyle>
           </ItemContainer>
-          {/* <ButtonDelete onClick={() => dispatch(deleteContact(id))}>Delete</ButtonDelete> */}
+          <ButtonDelete onClick={() => dispatch(deleteContact(id))}>Delete</ButtonDelete>
         </Item>
       ))}
     </ItemList>
