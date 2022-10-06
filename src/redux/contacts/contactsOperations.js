@@ -1,14 +1,30 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import { addContactFetch, deleteContactFetch, allContactFetch } from "utils/mockApi";
 
-export const addContact = createAsyncThunk("contact/add", async (contact, {rejectWithValue}) => {
+export const addContact = createAsyncThunk("contact/add", async (contact, thunkApi) => {
     try {
     const response = await addContactFetch(contact);
     return response.data
     } catch (error) {
-        return rejectWithValue(error)
+        return thunkApi.rejectWithValue(error)
     }
-}, {})
+}, {
+    condition: (data, {getState}) => {
+        const {items} = getState().contacts
+               if (items.some(
+                contact => contact.name.toLowerCase() === data.name.toLowerCase()
+              )) {
+                alert(`${data.name} is already in contacts`);
+                return;
+              }
+    
+              if (items.some(
+                contact => contact.phone === data.phone)) {
+                alert(`${data.phone} is already in contacts`);
+                return;
+              }
+    }
+})
 
 export const deleteContact = createAsyncThunk("contact/delete", async (id, {rejectWithValue}) => {
 try {
