@@ -1,14 +1,13 @@
 import { Label, Input } from '../Form/Form';
-// import { changeFilter } from 'redux/filter/slice';
+import { changeFilter } from 'redux/filter/filterSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterChange} from 'redux/filter/filterActions';
 
 const Filter = () => {
   const dispatch = useDispatch();
   const value = useSelector(state => state.filter)
   
   const dispatchFilter = event => {
-    dispatch(filterChange(event.currentTarget.value))
+    dispatch(changeFilter(event.currentTarget.value))
   };
   
   return (

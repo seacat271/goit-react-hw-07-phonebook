@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { FormInput, ButtonAdd, Input, Label } from './Form.styled';
 import { useDispatch} from 'react-redux/es/exports';
-// import { addContact } from 'redux/contacts/slice'; 
 import { addContact } from "../../redux/contacts/contactsOperations"
 
 
@@ -26,18 +25,6 @@ const Form = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    // if (
-    //   contacts.some(
-    //     contact => contact.name.toLowerCase() === name.toLowerCase()
-    //   )
-    // ) {
-    //   alert(`${name} is already in contacts`);
-    //   return;
-    // }
-    // if (contacts.some((contact) => contact.number === number)) {
-    //   alert(`${number} is already in contacts`);
-    //   return;
-    // }
 
     dispatch(addContact({name, phone}));
     reset()

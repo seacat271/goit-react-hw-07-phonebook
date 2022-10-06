@@ -10,15 +10,12 @@ import { deleteContact, fetchContacts} from 'redux/contacts/contactsOperations';
 import { useEffect } from 'react';
 import { getVisibleContacts } from 'redux/contacts/contactsSelector';
 
-
-
 const ContactList = () => {
 const dispatch = useDispatch();
 
 useEffect(() => {
   dispatch(fetchContacts())
 },[dispatch])
-
 const visibleContacts = useSelector(getVisibleContacts)
   return (
     <ItemList>
