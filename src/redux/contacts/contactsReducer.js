@@ -1,32 +1,13 @@
-import { createReducer, combineReducers } from "@reduxjs/toolkit";
+import { createReducer, combineReducers, createSlice } from "@reduxjs/toolkit";
 import { addContact, deleteContact, fetchContacts } from "./contactsOperations";
 
 
 
 export const itemsReducer = createReducer([], {
-    [addContact.fulfilled]: (state, action) => {
     
-        if (state.some(
-            contact => contact.name.toLowerCase() === action.payload.name.toLowerCase()
-          )) {
-            alert(`${action.payload.name} is already in contacts`);
-            return;
-          }
 
-          if (state.some(
-            contact => contact.phone === action.payload.phone)) {
-            alert(`${action.payload.phone} is already in contacts`);
-            return;
-          }
-        return [...state, action.payload]
-    },
 
-    [deleteContact.fulfilled]: (state, action) => {
-        return state.filter(contact => contact.id !== action.payload)
-    },
-    [fetchContacts.fulfilled]: (_, action) => {
-        return [...action.payload]
-    }
+
 })
 
 export const errorReducer = createReducer(null, {
@@ -55,3 +36,32 @@ export const contactsReducer = combineReducers({
     isLoading: loadingReducer,
     error: errorReducer,
   });
+
+export  const contactSlice = createSlice({
+    name: "contacts",
+    initialState: {items: [], isLoading: false, error: null},
+    extraReducers: {
+        [addContact.fulfilled]: (state, action) => {
+    
+            // if (state.some(
+            //     contact => contact.name.toLowerCase() === action.payload.name.toLowerCase()
+            //   )) {
+            //     alert(`${action.payload.name} is already in contacts`);
+            //     return;
+            //   }
+    
+            //   if (state.some(
+            //     contact => contact.phone === action.payload.phone)) {
+            //     alert(`${action.payload.phone} is already in contacts`);
+            //     return;
+            //   }
+            return {...state, items: [...state.items, action.payload]}
+        },
+        [deleteContact.fulfilled]: (state, action) => {
+            return {...state, items: state.items.filter(contact => contact.id !== action.payload)}
+        },
+        [fetchContacts.fulfilled]: (state, action) => {
+            return {...state, items: action.payload}
+        }
+    }
+  })

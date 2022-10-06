@@ -6,7 +6,6 @@ export const itemsSlice = createSlice({
     initialState: data,
     reducers: {
         addContact(state, action) {
-          console.log(state.contacts)
             if (state.contacts.items.some(
                 contact => contact.name.toLowerCase() === action.payload.name.toLowerCase()
               )) {

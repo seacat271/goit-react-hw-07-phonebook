@@ -8,28 +8,22 @@ import {
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { deleteContact, fetchContacts} from 'redux/contacts/contactsOperations';
 import { useEffect } from 'react';
+import { getVisibleContacts } from 'redux/contacts/contactsSelector';
 
 
 
 const ContactList = () => {
 const dispatch = useDispatch();
-const filter = useSelector(state => state.filter);
-const items = useSelector(state => state.contacts.items);
 
 useEffect(() => {
   dispatch(fetchContacts())
 },[dispatch])
 
-const getVisibleContacts = () => {
-  const filterNormalize = filter.toLowerCase(); 
-  return (filter) 
-  ? items.filter(contact => contact.name.toLowerCase().includes(filterNormalize))
-  : items
-};
+const visibleContacts = useSelector(getVisibleContacts)
 
   return (
     <ItemList>
-      {getVisibleContacts().map(({ name, id, phone }) => (
+      {visibleContacts.map(({ name, id, phone }) => (
         <Item key={id}>
           <ItemContainer>
             {name}: <NameStyle>{phone}</NameStyle>

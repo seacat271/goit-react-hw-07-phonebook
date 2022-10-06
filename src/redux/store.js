@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { filterReducer} from './filter/filterReducer';
-import { contactsReducer } from './contacts/contactsReducer';
+import { contactSlice } from './contacts/contactsReducer';
 
 
 
@@ -16,7 +16,7 @@ const preLoadedState = {
 
 export const store = configureStore({
   reducer: {
-    contacts: contactsReducer,
+    contacts: contactSlice.reducer,
     filter: filterReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
