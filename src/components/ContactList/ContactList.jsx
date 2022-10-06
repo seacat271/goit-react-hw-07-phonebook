@@ -20,7 +20,6 @@ useEffect(() => {
 },[dispatch])
 
 const visibleContacts = useSelector(getVisibleContacts)
-
   return (
     <ItemList>
       {visibleContacts.map(({ name, id, phone }) => (

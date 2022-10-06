@@ -15,13 +15,13 @@ export const addContact = createAsyncThunk("contact/add", async (contact, thunkA
                 contact => contact.name.toLowerCase() === data.name.toLowerCase()
               )) {
                 alert(`${data.name} is already in contacts`);
-                return;
+                return false;
               }
     
               if (items.some(
                 contact => contact.phone === data.phone)) {
                 alert(`${data.phone} is already in contacts`);
-                return;
+                return false;
               }
     }
 })

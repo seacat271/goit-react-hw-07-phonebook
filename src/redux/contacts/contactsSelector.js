@@ -9,4 +9,5 @@ export const getVisibleContacts = (state) => {
     ? items.filter(contact => contact.name.toLowerCase().includes(filterNormalize))
     : items
   };
+
   

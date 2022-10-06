@@ -12,15 +12,7 @@ export const errorReducer = createReducer(null, {
     }
 )
 export const loadingReducer = createReducer(false, {
-    [addContact.pending]: () => true,
-    [addContact.fulfilled]: () => false,
-    [addContact.rejected]: () => false,
-    [deleteContact.pending]: () => true,
-    [deleteContact.fulfilled]: () => false,
-    [deleteContact.rejected]: () => false,
-    [fetchContacts.pending]: () => true,
-    [fetchContacts.fulfilled]: () => false,
-    [fetchContacts.rejected]: () => false,
+
 })
 
 
@@ -29,20 +21,33 @@ export  const contactSlice = createSlice({
     name: "contacts",
     initialState: {items: [], isLoading: false, error: null},
     extraReducers: {
+        [addContact.pending]: state =>  ({...state, isLoading: !state.isLoading}),
         [addContact.fulfilled]: (state, action) => {
-            return {...state, items: [...state.items, action.payload]}
+            return {...state, items: [...state.items, action.payload], isLoading: !state.isLoading}
         },
+        [addContact.rejected]: state =>  ({...state, isLoading: !state.isLoading}),
+        [deleteContact.pending]: state =>  ({...state, isLoading: !state.isLoading}),
         [deleteContact.fulfilled]: (state, action) => {
             return {...state, items: state.items.filter(contact => contact.id !== action.payload)}
         },
+        [fetchContacts.pending]: state =>  ({...state, isLoading: !state.isLoading}),
         [fetchContacts.fulfilled]: (state, action) => {
             return {...state, items: action.payload}
-        }
+        },
+
+
+        // [addContact.rejected]: () => false,
+
+        // [deleteContact.fulfilled]: () => false,
+        // [deleteContact.rejected]: () => false,
+
+        // [fetchContacts.fulfilled]: () => false,
+        // [fetchContacts.rejected]: () => false,
     }
   })
 
   export const contactsReducer = combineReducers({
     items: contactSlice.reducer,
-    isLoading: loadingReducer,
+    isLoading: contactSlice.reducer,
     error: errorReducer,
   });
